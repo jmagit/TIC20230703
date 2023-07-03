@@ -1,5 +1,11 @@
 # Curso de Microservicios en Spring 
 
+## Instalación
+
+- [JDK](https://www.oracle.com/java/technologies/downloads/)
+- [Eclipse](https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2023-06/R/eclipse-java-2023-06-R-win32-x86_64.zip)
+
+
 ## Documentación
 
 - https://docs.spring.io/spring-boot/docs/current/reference/html/
