@@ -24,7 +24,7 @@ public class DemoApplication implements CommandLineRunner {
 	ActorRepository dao;
 	
 	@Override
-	@Transactional
+//	@Transactional
 	public void run(String... args) throws Exception {
 		System.out.println("Aplicacion arrancada");
 //		var actor = new Actor(0, "Pepito", "Grillo");
@@ -51,10 +51,25 @@ public class DemoApplication implements CommandLineRunner {
 //			System.out.println(actor);
 //			actor.getFilmActors().forEach(item -> System.out.println(item.getFilm()));
 //		}
-		int page = 1, rows = 10;
-		dao.findAll(PageRequest.of(page, rows, Sort.by("actorId"))).forEach(
-				item -> System.out.println(item.getActorId() + ": " + item.getFilmActors().size())
-		);
+//		int page = 1, rows = 10;
+//		dao.findAll(PageRequest.of(page, rows, Sort.by("actorId"))).forEach(
+//				item -> System.out.println(item.getActorId() + ": " + item.getFilmActors().size())
+//		);
+//		try {
+//			trans();
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+		dao.findAll((root, query, builder) -> builder.greaterThan(root.get("actorId"), 200)).forEach(System.out::println);
 	}
 
+	@Transactional
+	private void trans() {
+		var actor = new Actor(0, "   ", "Grillo");
+		dao.save(actor);
+		actor = new Actor(0, "Carmelo", "Coton");
+		dao.save(actor);
+		dao.deleteById(1);
+
+	}
 }
