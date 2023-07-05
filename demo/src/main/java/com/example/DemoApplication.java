@@ -21,8 +21,8 @@ public class DemoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.println("Aplicacion arrancada");
-		var actor = new Actor(0, " ", "Grillo");
-			dao.save(actor);
+//		var actor = new Actor(0, "Pepito", "Grillo");
+//		dao.save(actor);
 //		var leido = dao.findById(211);
 //		if(leido.isPresent()) {
 //			actor = leido.get();
