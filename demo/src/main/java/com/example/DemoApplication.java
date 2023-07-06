@@ -9,9 +9,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import com.example.domains.contracts.repositories.ActorRepository;
+import com.example.domains.contracts.services.ActorService;
 import com.example.domains.entities.Actor;
 import com.example.domains.entities.dtos.ActorDTO;
 import com.example.domains.entities.dtos.ActorShort;
+import com.example.exceptions.DuplicateKeyException;
+import com.example.exceptions.InvalidDataException;
 
 import jakarta.transaction.Transactional;
 
@@ -22,8 +25,11 @@ public class DemoApplication implements CommandLineRunner {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
+//	@Autowired
+//	ActorRepository dao;
 	@Autowired
-	ActorRepository dao;
+	ActorService srv;
+	
 	
 	@Override
 //	@Transactional
@@ -77,16 +83,23 @@ public class DemoApplication implements CommandLineRunner {
 //		dao.queryByActorIdBetween(6, 10, null).forEach(item -> System.out.println(item.getId() + ": " + item.getNombre()));
 //		dao.findAllBy(ActorShort.class).forEach(item -> System.out.println(item.getId() + ": " + item.getNombre()));
 //		dao.findAllBy(ActorDTO.class).forEach(System.out::println);
-		
+//		srv.getByProjection(ActorDTO.class).forEach(System.out::println);
+//		try {
+//			srv.add(ActorDTO.from(new ActorDTO(1, "KK", "12345678z")));
+//		} catch (DuplicateKeyException e) {
+//			e.printStackTrace();
+//		} catch (InvalidDataException e) {
+//			e.printStackTrace();
+//		}
 	}
-
-	@Transactional
-	private void trans() {
-		var actor = new Actor(0, "   ", "Grillo");
-		dao.save(actor);
-		actor = new Actor(0, "Carmelo", "Coton");
-		dao.save(actor);
-		dao.deleteById(1);
-
-	}
+//
+//	@Transactional
+//	private void trans() {
+//		var actor = new Actor(0, "   ", "Grillo");
+//		dao.save(actor);
+//		actor = new Actor(0, "Carmelo", "Coton");
+//		dao.save(actor);
+//		dao.deleteById(1);
+//
+//	}
 }

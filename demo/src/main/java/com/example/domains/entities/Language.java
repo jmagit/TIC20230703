@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 /**
  * The persistent class for the language database table.
@@ -19,16 +22,20 @@ public class Language implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="language_id", unique=true, nullable=false)
+	@JsonProperty("id")
 	private int languageId;
 
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
+	@JsonIgnore
 	private Timestamp lastUpdate;
 
 	@Column(nullable=false, length=20)
+	@JsonProperty("idioma")
 	private String name;
 
 	//bi-directional many-to-one association to Film
 	@OneToMany(mappedBy="language")
+	@JsonIgnore
 	private List<Film> films;
 
 	//bi-directional many-to-one association to Film

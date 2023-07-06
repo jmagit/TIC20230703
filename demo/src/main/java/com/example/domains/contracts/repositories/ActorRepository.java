@@ -8,12 +8,13 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.example.domains.core.contracts.repositories.RepositoryWithProjections;
 import com.example.domains.entities.Actor;
 import com.example.domains.entities.dtos.ActorDTO;
 import com.example.domains.entities.dtos.ActorShort;
 
 
-public interface ActorRepository extends JpaRepository<Actor, Integer>, JpaSpecificationExecutor<Actor> {
+public interface ActorRepository extends JpaRepository<Actor, Integer>, JpaSpecificationExecutor<Actor>, RepositoryWithProjections {
 	List<Actor> findTop5ByFirstNameIgnoreCaseStartingWithOrderByLastNameDesc(String prefijo);
 	List<Actor> findByActorIdBetween(int inicio, int fin, Sort orderBy);
 	
@@ -25,5 +26,5 @@ public interface ActorRepository extends JpaRepository<Actor, Integer>, JpaSpeci
 	List<ActorDTO> readByActorIdBetween(int inicio, int fin, Sort orderBy);
 	List<ActorShort> queryByActorIdBetween(int inicio, int fin, Sort orderBy);
 	
-	<T> List<T> findAllBy(Class<T> tipo);
+//	<T> List<T> findAllBy(Class<T> tipo);
 }
