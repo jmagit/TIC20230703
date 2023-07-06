@@ -10,6 +10,8 @@ import org.springframework.data.domain.Sort;
 
 import com.example.domains.contracts.repositories.ActorRepository;
 import com.example.domains.entities.Actor;
+import com.example.domains.entities.dtos.ActorDTO;
+import com.example.domains.entities.dtos.ActorShort;
 
 import jakarta.transaction.Transactional;
 
@@ -61,7 +63,21 @@ public class DemoApplication implements CommandLineRunner {
 //			System.out.println(e.getMessage());
 //		    e.printStackTrace();
 //		}		
-		dao.findAll((root, query, builder) -> builder.greaterThan(root.get("actorId"), 200)).forEach(System.out::println);
+//		var actor = new Actor(0, null, "12345678z");
+//		if(actor.isInvalid()) {
+//			System.err.println(actor.getErrorsMessage());
+//		} else {
+//			dao.save(actor);
+//		}
+//		dao.findAll((root, query, builder) -> builder.greaterThan(root.get("actorId"), 180)).stream()
+//			.map(ActorDTO::from)
+//			.forEach(System.out::println);
+//		System.out.println(ActorDTO.from(new ActorDTO(0, null, "12345678z")));
+//		dao.readByActorIdBetween(1, 5, null).forEach(System.out::println);
+//		dao.queryByActorIdBetween(6, 10, null).forEach(item -> System.out.println(item.getId() + ": " + item.getNombre()));
+//		dao.findAllBy(ActorShort.class).forEach(item -> System.out.println(item.getId() + ": " + item.getNombre()));
+//		dao.findAllBy(ActorDTO.class).forEach(System.out::println);
+		
 	}
 
 	@Transactional

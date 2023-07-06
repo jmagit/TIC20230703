@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.example.domains.entities.Actor;
+import com.example.domains.entities.dtos.ActorDTO;
+import com.example.domains.entities.dtos.ActorShort;
 
 
 public interface ActorRepository extends JpaRepository<Actor, Integer>, JpaSpecificationExecutor<Actor> {
@@ -19,4 +21,9 @@ public interface ActorRepository extends JpaRepository<Actor, Integer>, JpaSpeci
 	List<Actor> findByJPQL(int id);
 	@Query(value = "SELECT * FROM actor WHERE actor_id < :id", nativeQuery = true)
 	List<Actor> findBySQL(@Param("id") int id);
+	
+	List<ActorDTO> readByActorIdBetween(int inicio, int fin, Sort orderBy);
+	List<ActorShort> queryByActorIdBetween(int inicio, int fin, Sort orderBy);
+	
+	<T> List<T> findAllBy(Class<T> tipo);
 }
