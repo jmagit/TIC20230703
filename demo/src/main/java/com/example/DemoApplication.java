@@ -25,7 +25,7 @@ public class DemoApplication implements CommandLineRunner {
 	
 	@Override
 //	@Transactional
-	public void run(String... args) throws Exception {
+	public void run(String... args) {
 		System.out.println("Aplicacion arrancada");
 //		var actor = new Actor(0, "Pepito", "Grillo");
 //		dao.save(actor);
@@ -59,7 +59,8 @@ public class DemoApplication implements CommandLineRunner {
 //			trans();
 //		} catch (Exception e) {
 //			System.out.println(e.getMessage());
-//		}
+//		    e.printStackTrace();
+//		}		
 		dao.findAll((root, query, builder) -> builder.greaterThan(root.get("actorId"), 200)).forEach(System.out::println);
 	}
 

@@ -12,29 +12,13 @@ import jakarta.validation.Validator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public abstract class EntityBase<E> {
+	private static final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 	
 	@Transient
 	@JsonIgnore
 	@SuppressWarnings("unchecked")
 	public Set<ConstraintViolation<E>> getErrors() {
-		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 		return validator.validate((E)this);
-	}
-
-	@JsonIgnore
-	@Transient
-	public String getErrorsMessage() {
-		Set<ConstraintViolation<E>> lst = getErrors();
-		if (lst.isEmpty())
-			return "";
-		StringBuilder sb = new StringBuilder("ERRORES:");
-//		getErrors().forEach(item -> sb.append(" " + item.getPropertyPath() + ": " + item.getMessage() + ". "));
-//		getErrors().stream().map(item -> " " + item.getPropertyPath() + ": " + item.getMessage() + ". ")
-//			.sorted().forEach(sb::append);
-//		lst.stream().sorted((a,b)->a.getPropertyPath().toString().compareTo(b.getPropertyPath().toString()))
-//			.forEach(item -> sb.append(" " + item.getPropertyPath() + ": " + item.getMessage() + "."));
-		getErrorsFields().forEach((fld, err) -> sb.append(" " + fld + ": " + err + "."));
-		return sb.toString();
 	}
 
 	@JsonIgnore
@@ -49,6 +33,17 @@ public abstract class EntityBase<E> {
 					(errors.containsKey(item.getPropertyPath().toString()) ? errors.get(item.getPropertyPath().toString()) + ", " : "") 
 					+ item.getMessage()));
 		return errors;
+	}
+
+	@JsonIgnore
+	@Transient
+	public String getErrorsMessage() {
+		Set<ConstraintViolation<E>> lst = getErrors();
+		if (lst.isEmpty())
+			return "";
+		StringBuilder sb = new StringBuilder("ERRORES:");
+		getErrorsFields().forEach((fld, err) -> sb.append(" " + fld + ": " + err + "."));
+		return sb.toString();
 	}
 
 	@Transient

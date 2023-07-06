@@ -9,12 +9,14 @@ import java.lang.annotation.Target;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
-@Target({ ElementType.FIELD, ElementType.TYPE_USE, ElementType.PARAMETER })
+@Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = NifValidator.class)
+@Constraint(validatedBy = GreaterThanValidator.class)
 @Documented
-public @interface NIF {
-	String message() default "{validation.NIF.message}";
+public @interface GreaterThan {
+	String message() default "{validation.GreaterThan.message}";
+	String minor();
+	String major();
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
 }
