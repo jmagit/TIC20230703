@@ -1,4 +1,5 @@
 package com.example.application.resources;
+import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Valid;
 import jakarta.validation.Validator;
@@ -8,6 +9,8 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,6 +26,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.domains.contracts.services.ActorService;
 import com.example.domains.entities.dtos.ActorDTO;
+import com.example.domains.entities.dtos.ActorShort;
+import com.example.domains.entities.dtos.PeliculasShortDTO;
 import com.example.exceptions.*;
 
 import org.springframework.http.HttpStatus;
@@ -38,12 +43,33 @@ public class ActorResource {
 		return srv.getByProjection(ActorDTO.class);
 	}
 
+	@GetMapping(params = "page")
+	public Page<ActorDTO> getAll(Pageable pageable) {
+		return srv.getByProjection(pageable, ActorDTO.class);
+	}
+
+	@GetMapping(params = "mode=short")
+	public List<ActorShort> getAllShort() {
+		return srv.getByProjection(ActorShort.class);
+	}
+
 	@GetMapping(path = "/{id}")
 	public ActorDTO getOne(@PathVariable int id) throws NotFoundException {
 		var item = srv.getOne(id);
 		if(item.isEmpty())
 			throw new NotFoundException();
 		return ActorDTO.from(item.get());
+	}
+	
+	@Transactional
+	@GetMapping(path = "/{id}/pelis")
+	public List<PeliculasShortDTO> getPelis(@PathVariable int id) throws NotFoundException {
+		var item = srv.getOne(id);
+		if(item.isEmpty())
+			throw new NotFoundException();
+		return item.get().getFilmActors().stream()
+				.map(a -> new PeliculasShortDTO(a.getFilm().getFilmId(), a.getFilm().getTitle()))
+				.toList();
 	}
 	
 	@PostMapping

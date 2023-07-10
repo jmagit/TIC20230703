@@ -2,6 +2,7 @@ package com.example;
 
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.ErrorResponseException;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -134,6 +135,11 @@ public class ApiExceptionHandler {
 	@ExceptionHandler({ NotFoundException.class })
 	public ProblemDetail notFoundRequest(Exception exception) {
 		return ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler({ HttpMediaTypeNotAcceptableException.class })
+	public ProblemDetail notAccept(Exception exception) {
+		return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_ACCEPTABLE, exception.getMessage());
 	}
 
 	@ExceptionHandler({ BadRequestException.class, DuplicateKeyException.class, HttpMessageNotReadableException.class })
