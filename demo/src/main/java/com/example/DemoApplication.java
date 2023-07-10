@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import com.example.domains.contracts.repositories.ActorRepository;
+import com.example.domains.contracts.repositories.LanguageRepository;
 import com.example.domains.contracts.services.ActorService;
 import com.example.domains.entities.Actor;
 import com.example.domains.entities.dtos.ActorDTO;
@@ -29,6 +30,8 @@ public class DemoApplication implements CommandLineRunner {
 //	ActorRepository dao;
 	@Autowired
 	ActorService srv;
+	@Autowired
+	LanguageRepository dao;
 	
 	
 	@Override
