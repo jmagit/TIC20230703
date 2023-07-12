@@ -53,7 +53,8 @@ public class ContactoResource {
 		String getApellidos();
 		String getTelefono();
 		String getEmail();
-		String getSexo();	}
+		String getSexo();	
+	}
 
 	@GetMapping
 	@Operation(summary = "Listar todos")

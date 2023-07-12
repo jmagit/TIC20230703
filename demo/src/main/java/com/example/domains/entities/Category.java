@@ -1,8 +1,12 @@
 package com.example.domains.entities;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+
 import jakarta.persistence.*;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -21,13 +25,15 @@ public class Category implements Serializable {
 	private int categoryId;
 
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
-	private Short lastUpdate;
+	@JsonIgnore
+	private Timestamp lastUpdate;
 
 	@Column(nullable=false, length=25)
 	private String name;
 
 	//bi-directional many-to-one association to FilmCategory
 	@OneToMany(mappedBy="category")
+	@JsonIgnore
 	private List<FilmCategory> filmCategories;
 
 	public Category() {
@@ -41,11 +47,11 @@ public class Category implements Serializable {
 		this.categoryId = categoryId;
 	}
 
-	public Short getLastUpdate() {
+	public Timestamp getLastUpdate() {
 		return this.lastUpdate;
 	}
 
-	public void setLastUpdate(Short lastUpdate) {
+	public void setLastUpdate(Timestamp lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 

@@ -28,7 +28,8 @@ public class FilmEditDTO {
 	private int filmId;
 	@Schema(description = "Una breve descripción o resumen de la trama de la película", minLength = 2)
 	private String description;
-	@Schema(description = "La duración de la película, en minutos", required = true)
+	@Schema(description = "La duración de la película, en minutos")
+	@NotNull
 	private Integer length;
 	@Schema(description = "La clasificación por edades asignada a la película", allowableValues = {"G", "PG", "PG-13", "R", "NC-17"})
 	@Pattern(regexp = "^(G|PG|PG-13|R|NC-17)$")

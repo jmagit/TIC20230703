@@ -10,9 +10,9 @@ import lombok.Value;
 @Schema(name = "Pelicula (Corto)", description = "Version corta de las peliculas")
 @Value
 public class FilmShortDTO {
-	@Schema(description = "Identificador de la pelicula", required = true, accessMode = AccessMode.READ_ONLY)
+	@Schema(description = "Identificador de la pelicula", accessMode = AccessMode.READ_ONLY)
 	private int filmId;
-	@Schema(description = "Titulo de la pelicula", required = true)
+	@Schema(description = "Titulo de la pelicula")
 	private String title;
 	
 	public static FilmShortDTO from(Film source) {
